@@ -1,8 +1,9 @@
 #!/usr/bin/env node
 
-const inquirer = require("inquirer");
 const child_process = require("child_process");
 const util = require("util");
+
+const inquirer = require("inquirer");
 const chalk = require("chalk");
 const parseGitStatus = require("parse-git-status");
 const getBranch = require("git-branch");
