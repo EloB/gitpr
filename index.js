@@ -56,6 +56,8 @@ const SELECT_FILES = "Select files";
     const defaultBranch = await getDefaultBranch();
     const branch = await getBranch();
 
+    const path = origin.slice(15, -4);
+
     const { method } = await inquirer.prompt([
       {
         type: "list",
@@ -89,7 +91,7 @@ const SELECT_FILES = "Select files";
           message: "Branch name:",
           transformer: (value, { type }) => `${chalk.grey(`${type}/`)}${value}`,
           validate: (value) => {
-            if (!/^[a-z]+$/.test(value))
+            if (!/^[a-z-]+$/.test(value))
               return "You need to specify small characters.";
             return isRequired("You need to specify a branch name.")(value);
           },
@@ -121,11 +123,7 @@ const SELECT_FILES = "Select files";
     await exec(`git cherry-pick ${commit}`);
     await exec(`git push --set-upstream origin ${combinedBranch}`);
     await exec(`git checkout ${branch}`);
-    await open(
-      `https://github.com/${origin.slice(15, -4)}/compare/${
-        answers.branch
-      }?expand=1`
-    );
+    await open(`https://github.com/${path}/compare/${combinedBranch}?expand=1`);
   } catch (error) {
     console.error(chalk.red(error.message || error));
     process.exit(1);
