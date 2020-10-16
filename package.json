@@ -1,6 +1,6 @@
 {
   "name": "@elob/gitpr",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Command line tool for github PRs",
   "main": "index.js",
   "dependencies": {
